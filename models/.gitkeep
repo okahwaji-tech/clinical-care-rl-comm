@@ -1,0 +1,2 @@
+# This file ensures the models directory is tracked by git
+# Trained model files (*.pt, *.pth, *.ckpt) are ignored but the directory structure is preserved

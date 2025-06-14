@@ -1,0 +1,107 @@
+[tool.poetry]
+name = "clinical-care-rl-comm"
+version = "0.3.0"
+description = "Healthcare Communication Optimization using Reinforcement Learning"
+authors = ["Omar Kahwaji <omarkahwaji@gmail.com>"]
+readme = "README.md"
+repository = "https://github.com/okahwaji-tech/clinical-care-rl-comm"
+documentation = "https://github.com/okahwaji-tech/clinical-care-rl-comm#readme"
+keywords = ["deep-learning", "reinforcement-learning", "healthcare", "optimization"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Healthcare Industry",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+]
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.10"
+numpy = "^1.24.0"
+typeguard = "^4.4.0"
+torch = "^2.1.0"
+torchvision = "^0.16.0"
+seaborn = "^0.13.2"
+ray = {version = "^2.47.0", extras = ["tune"]}
+pytest = "^8.4.0"
+psutil = "^7.0.0"
+
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^7.1.0"
+pylint = "^3.3.0"
+mypy = "^1.13.0"
+pytest-cov = "^6.0.0"
+invoke = "^2.2.0"
+black = "^23.1.0"
+isort = "^5.12.0"
+pre-commit = "^3.0.0"
+pandas = "^2.0.0"
+matplotlib = "^3.7.0"
+
+# Code Quality Tools Configuration
+[tool.black]
+line-length = 88
+target-version = ['py310']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  \.eggs
+  | \.git
+  | \.mypy_cache
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+known_first_party = ["core"]
+sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+show_error_codes = true
+
+[[tool.mypy.overrides]]
+module = [
+    "matplotlib.*",
+    "pandas.*",
+    "numpy.*",
+    "torch.*",
+    "typeguard.*",
+]
+ignore_missing_imports = true
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = [
+    "E203",  # whitespace before ':'
+    "W503",  # line break before binary operator
+    "E501",  # line too long (handled by black)
+]
+exclude = [
+    ".git",
+    "__pycache__",
+    "build",
+    "dist",
+    ".venv",
+    ".mypy_cache",
+]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
